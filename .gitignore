@@ -1,0 +1,11 @@
+# Virtual Environments
+.venv
+*/.venv
+
+# Locked Dependency States
+Pipfile.lock
+*/Pipfile.lock
+
+# Cached Python Setup File
+__pycache__
+*/__pycache__
