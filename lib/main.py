@@ -11,11 +11,6 @@ def main():
         global selected_game
         selected_game = game
 
-    def launch_selected_game():
-        print(selected_game)
-        menu.disable()
-        return
-
     # Initialize Pygame
     pygame.init()
 
@@ -35,16 +30,23 @@ def main():
             [("Minesweeper", "Minesweeper"), ("TicTacToe", "TicTacToe"), ("Snake", "Snake")],
             onchange=select_game,
         )
-    menu.add.button("Play", launch_selected_game)
+    menu.add.button("Play", menu.disable)
     menu.mainloop(screen)
 
     # Used to manage how fast the screen updates
     clock = pygame.time.Clock()
+    white = (255, 255, 255)
+    bg_grey = (37, 37, 37)
+    font = pygame.font.SysFont("Arial", 32)
+    text = font.render(f"Welcome to {selected_game}", True, white)
+    textRect = text.get_rect()
     # Main program loop
     while True:
         # --- Limit to 60 frames per second
         clock.tick(60)
-        screen.fill((37, 37, 37))
+        screen.fill(bg_grey)
+        screen.blit(text, textRect)
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
