@@ -35,17 +35,27 @@ def main():
 
     # Used to manage how fast the screen updates
     clock = pygame.time.Clock()
+
     white = (255, 255, 255)
     bg_grey = (37, 37, 37)
+
     font = pygame.font.SysFont("Arial", 32)
-    text = font.render(f"Welcome to {selected_game}", True, white)
-    textRect = text.get_rect()
+    from helpers import Button
+    back_button_img = pygame.image.load('back_button.png').convert_alpha()
+    back_button = Button(150, 150, back_button_img, 0.5)
+
     # Main program loop
     while True:
         # --- Limit to 60 frames per second
         clock.tick(60)
         screen.fill(bg_grey)
+        text = font.render(f"Welcome to {selected_game}", True, white)
+        textRect = text.get_rect()
         screen.blit(text, textRect)
+        if back_button.draw(screen):
+            menu.enable()
+            menu.mainloop(screen)
+
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
