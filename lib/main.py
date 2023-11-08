@@ -26,7 +26,7 @@ def main():
     menu = pygame_menu.Menu("Welcome to Tims Arcade", 800, 600, theme=pygame_menu.themes.THEME_DARK)
 
     menu.add.selector(
-            "game :",
+            "Game :",
             [("Minesweeper", "Minesweeper"), ("TicTacToe", "TicTacToe"), ("Snake", "Snake")],
             onchange=select_game,
         )
