@@ -1,5 +1,7 @@
 import pygame
 import pygame_menu
+import subprocess
+import sys
 
 
 def main():
@@ -11,8 +13,13 @@ def main():
         global selected_game
         selected_game = game
 
+    def launch_selected_game():
+        subprocess.Popen([sys.executable, f"./lib/games/{selected_game.lower()}/{selected_game.lower()}.py"])
+        menu.disable()
+
     # Initialize Pygame
     pygame.init()
+
 
     # Set the width and height of the screen (width, height).
     size = (800, 600)
@@ -30,7 +37,7 @@ def main():
             [("Minesweeper", "Minesweeper"), ("TicTacToe", "TicTacToe"), ("Snake", "Snake")],
             onchange=select_game,
         )
-    menu.add.button("Play", menu.disable)
+    menu.add.button("Play", launch_selected_game)
     menu.mainloop(screen)
 
     # Used to manage how fast the screen updates

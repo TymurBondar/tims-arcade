@@ -1,6 +1,7 @@
 import pygame
 class Board():
     def __init__(self):
+        # this holds current board state
         self.markers = [
             [None, None, None],
             [None, None, None],
@@ -17,38 +18,38 @@ class Board():
 
     def draw_markers(self, screen, color=(255, 255, 255)):
         x_pos = 0
-        for x in self.markers:
+        for row in self.markers:
             y_pos = 0
-            for y in x:
-                if y == 1:
-                    pygame.draw.line(screen, color, (x_pos * 200 + 15, y_pos * 100 + 15), (x_pos * 100 + 85, y_pos * 100 + 85), 3)
-                    pygame.draw.line(screen, color, (x_pos * 200 + 85, y_pos * 100 + 15), (x_pos * 100 + 15, y_pos * 100 + 85), 3)
-                if y == -1:
-                    pygame.draw.circle(screen, color, (x_pos * 200 + 50, y_pos * 100 + 50), 38, 3)
+            for cell in row:
+                if cell == "X":
+                    pygame.draw.line(screen, color, (x_pos * 200 + 30, y_pos * 200 + 30), (x_pos * 200 + 170, y_pos * 200 + 170), 3)
+                    pygame.draw.line(screen, color, (x_pos * 200 + 170, y_pos * 200 + 30), (x_pos * 200 + 30, y_pos * 200 + 170), 3)
+                if cell == "O":
+                    pygame.draw.circle(screen, color, (x_pos * 200 + 100, y_pos * 200 + 100), 76, 3)
                 y_pos += 1
             x_pos += 1	
 
 
-    def check_winner(self, markers):
+    def check_winner(self):
         # Check rows for winner
-        for row in markers:
+        for row in self.markers:
             if row.count(row[0]) == len(row) and row[0] != None:
                 return row[0]
 
         # Check columns for winner
-        for col in range(len(markers[0])):
-            check = set([markers[row][col] for row in range(len(markers))])
-            if len(check) == 1 and markers[0][col] != None:
-                return markers[0][col]
+        for col in range(len(self.markers[0])):
+            check = set([self.markers[row][col] for row in range(len(self.markers))])
+            if len(check) == 1 and self.markers[0][col] != None:
+                return self.markers[0][col]
 
         # Check diagonals for winner
-        if markers[0][0] == markers[1][1] == markers[2][2] != None:
-            return markers[0][0]
-        if markers[0][2] == markers[1][1] == markers[2][0] != None:
-            return markers[0][2]
+        if self.markers[0][0] == self.markers[1][1] == self.markers[2][2] != None:
+            return self.markers[0][0]
+        if self.markers[0][2] == self.markers[1][1] == self.markers[2][0] != None:
+            return self.markers[0][2]
 
         # Check for draw
-        if all(cell != None for row in markers for cell in row):
+        if all(cell != None for row in self.markers for cell in row):
             return 'Draw'
 
         # No winner or draw

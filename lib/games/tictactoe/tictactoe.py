@@ -1,14 +1,4 @@
-#draw board.
-# let player choose side
-# play game until terminal state
-# print the winner
-# add play again and return to menu buttons
-
-
-#Classes: Player, Board
-
 #rewrote this code ('https://github.com/russs123/TicTacToe/blob/master/tictactoe.py')
-
 import pygame
 from pygame.locals import *
 
@@ -30,6 +20,13 @@ run = True
 while run:
 
     board.draw(screen=screen, background_color=background_color)
+    result = board.check_winner()
+    if result != None:
+        if result == "Draw":
+            print("It is a draw!")
+        else:
+            print(f"The winner is {result}")
+        run = False
     board.draw_markers(screen=screen)
 
     for event in pygame.event.get():
@@ -40,10 +37,7 @@ while run:
             clicked = True
         if event.type == pygame.MOUSEBUTTONUP and clicked == True:
             clicked = False
-            print(f"Old board is {board.markers}")
             player.make_move(board=board)
-            print("made a move!")
-            print(f"New board is {board.markers}")
             
 
 
