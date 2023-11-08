@@ -59,6 +59,8 @@ def main():
         text = font.render(f"Welcome to {selected_game}", True, white)
         textRect = text.get_rect()
         screen.blit(text, textRect)
+
+        # return to the main menu after you click the back button
         if back_button.draw(screen):
             menu.enable()
             menu.mainloop(screen)

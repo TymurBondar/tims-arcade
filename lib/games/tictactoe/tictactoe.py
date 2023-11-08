@@ -2,7 +2,6 @@
 import pygame
 from pygame.locals import *
 
-
 screen_width = 600
 screen_height = 600
 
@@ -38,10 +37,7 @@ while run:
         if event.type == pygame.MOUSEBUTTONUP and clicked == True:
             clicked = False
             player.make_move(board=board)
-            
-
 
     pygame.display.update()
-
 
 pygame.quit()
